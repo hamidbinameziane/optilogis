@@ -1,0 +1,60 @@
+# =====================
+# Django
+# =====================
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+
+# =====================
+# Environnement virtuel
+# =====================
+venv/
+env/
+.venv/
+ENV/
+
+# =====================
+# Fichiers secrets
+# =====================
+.env
+.env.*
+*.env
+
+# =====================
+# Collectstatic
+# =====================
+staticfiles/
+
+# =====================
+# Migration (optionnel)
+# =====================
+# migrations/
+# (Décommente si tu veux ignorer toutes les migrations)
+
+# =====================
+# IDE / Editeurs
+# =====================
+.vscode/
+.idea/
+*.swp
+
+# =====================
+# OS
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Tests / Coverage
+# =====================
+.coverage
+htmlcov/
+
+# =====================
+# Python
+# =====================
+pip-log.txt
+pip-delete-this-directory.txt
