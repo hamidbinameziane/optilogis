@@ -30,8 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,13 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'api',
-    'cloudinary_storage',
     'cloudinary',
+    'api',
 ]
 
 CLOUDINARY_STORAGE = {
@@ -54,6 +52,10 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '569337394668732',
     'API_SECRET': 'MHwA4DXYrWbvn3Q9sgBecwIxYPc',
 }
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
