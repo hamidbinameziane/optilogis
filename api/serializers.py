@@ -7,16 +7,23 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class InterventionSerializer(serializers.ModelSerializer):
-    # On crée un champ virtuel pour l'URL propre que Flutter va lire
-    image = serializers.SerializerMethodField()
+    # On définit explicitement imageUrl comme une chaîne de caractères
+    # read_only=True évite que Django cherche une méthode get_image
+    imageUrl = serializers.ReadOnlyField(source='image.url', default=None)
 
     class Meta:
         model = Intervention
-        # 'image' est le champ réel du modèle (pour l'upload)
-        # 'imageUrl' est le champ calculé (pour l'affichage)
-        fields = '__all__'
-        
-        # On dit à Django que 'image' sert à l'écriture (upload) 
-        # mais qu'on ne veut pas le voir dans le JSON de réponse
+        # 'image' est pour l'upload depuis Flutter
+        # 'imageUrl' est pour l'affichage dans Flutter
+        fields = ['id', 'title', 'description', 'status', 'image', 'imageUrl']
+        extra_kwargs = {
+            'image': {'write_only': True}
+        }
 
+    # Pour corriger le problème du HTTPS sans créer de SerializerMethodField complexe
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation.get('imageUrl'):
+            representation['imageUrl'] = representation['imageUrl'].replace('http://', 'https://')
+        return representation
         
