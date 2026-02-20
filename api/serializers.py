@@ -7,15 +7,21 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class InterventionSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField() # On prend le contrôle du champ image
+    # Ce champ sera utilisé par Flutter pour LIRE l'URL propre
+    imageUrl = serializers.SerializerMethodField()
 
     class Meta:
         model = Intervention
-        fields = '__all__'
+        # 'image' est le champ brut (pour l'upload)
+        # 'imageUrl' est le champ formaté (pour l'affichage Flutter)
+        fields = ['id', 'title', 'description', 'status', 'image', 'imageUrl']
+        # On rend 'image' invisible à la lecture mais disponible à l'écriture
+        extra_kwargs = {'image': {'write_only': True}}
 
-    def get_image(self, obj):
+    def get_imageUrl(self, obj):
         if obj.image:
-            # On force l'URL en HTTPS pour Android
-            return obj.image.url.replace('http://', 'https://')
+            # On récupère l'URL Cloudinary et on force le HTTPS
+            url = obj.image.url
+            return url.replace('http://', 'https://')
         return None
         
