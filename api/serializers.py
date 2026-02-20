@@ -8,7 +8,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
 class InterventionSerializer(serializers.ModelSerializer):
     # On crée un champ virtuel pour l'URL propre que Flutter va lire
-    imageUrl = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = Intervention
