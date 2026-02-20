@@ -14,7 +14,7 @@ class InterventionSerializer(serializers.ModelSerializer):
         model = Intervention
         # 'image' est le champ réel du modèle (pour l'upload)
         # 'imageUrl' est le champ calculé (pour l'affichage)
-        fields = ['id', 'title', 'description', 'status', 'image', 'imageUrl']
+        fields = '__all__'
         
         # On dit à Django que 'image' sert à l'écriture (upload) 
         # mais qu'on ne veut pas le voir dans le JSON de réponse
