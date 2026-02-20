@@ -18,14 +18,5 @@ class InterventionSerializer(serializers.ModelSerializer):
         
         # On dit à Django que 'image' sert à l'écriture (upload) 
         # mais qu'on ne veut pas le voir dans le JSON de réponse
-        extra_kwargs = {
-            'image': {'write_only': True}
-        }
 
-    # Cette méthode DOIT s'appeler get_<nom_du_champ>
-    def get_imageUrl(self, obj):
-        if obj.image:
-            # On récupère l'URL de Cloudinary et on sécurise en HTTPS
-            return obj.image.url.replace('http://', 'https://')
-        return None
         
