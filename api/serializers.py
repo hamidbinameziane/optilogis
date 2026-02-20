@@ -7,8 +7,15 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class InterventionSerializer(serializers.ModelSerializer):
-    client_nom = serializers.ReadOnlyField(source='client.nom') # Pour Flutter
+    image = serializers.SerializerMethodField() # On prend le contrôle du champ image
+
     class Meta:
         model = Intervention
         fields = '__all__'
+
+    def get_image(self, obj):
+        if obj.image:
+            # On force l'URL en HTTPS pour Android
+            return obj.image.url.replace('http://', 'https://')
+        return None
         
